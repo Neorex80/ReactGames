@@ -21,6 +21,11 @@ body {
   position: relative;
 }
 
+.game-title {
+  font-size: 32px;
+  margin-bottom: 20px;
+}
+
 .status {
   margin-bottom: 20px;
   font-size: 24px;
