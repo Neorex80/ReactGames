@@ -100,30 +100,39 @@ const GameBoard = () => {
   };
 
   const calculateWinner = (board) => {
-    const lines = getWinningLines(boardSize);
+  const lines = getWinningLines(boardSize);
+  const winningLength = boardSize === 3 ? 3 : 4;
 
-    for (let line of lines) {
-      const [a, b, c] = line;
-      if (board[a] && board[a] === board[b] && board[a] === board[c]) {
-        return { winner: board[a], line };
+  for (let line of lines) {
+    let count = 1;
+    for (let i = 1; i < line.length; i++) {
+      if (board[line[i]] && board[line[i]] === board[line[i - 1]]) {
+        count++;
+      } else {
+        count = 1;
+      }
+      if (count === winningLength) {
+        return { winner: board[line[i]], line: line.slice(i - winningLength + 1, i + 1) };
       }
     }
-    return null;
-  };
+  }
+  return null;
+};
 
-  const getWinningLines = (size) => {
-    const lines = [];
-    for (let i = 0; i < size; i++) {
-      // Rows
-      lines.push(Array.from({ length: size }, (_, k) => i * size + k));
-      // Columns
-      lines.push(Array.from({ length: size }, (_, k) => i + k * size));
-    }
-    // Diagonals
-    lines.push(Array.from({ length: size }, (_, k) => k * (size + 1)));
-    lines.push(Array.from({ length: size }, (_, k) => (k + 1) * (size - 1)));
-    return lines;
-  };
+const getWinningLines = (size) => {
+  const lines = [];
+  for (let i = 0; i < size; i++) {
+    // Rows
+    lines.push(Array.from({ length: size }, (_, k) => i * size + k));
+    // Columns
+    lines.push(Array.from({ length: size }, (_, k) => i + k * size));
+  }
+  // Diagonals
+  lines.push(Array.from({ length: size }, (_, k) => k * (size + 1)));
+  lines.push(Array.from({ length: size }, (_, k) => (k + 1) * (size - 1)));
+  return lines;
+};
+
 
   const status = winner ? `Winner: ${winner}` : `Next player: ${isXNext ? 'X' : 'O'}`;
 
