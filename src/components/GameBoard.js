@@ -2,7 +2,7 @@ import React, { useState, useEffect } from 'react';
 import './GameBoard.css';
 import ResultDialog from './ResultDialog';
 import { FontAwesomeIcon } from '@fortawesome/react-fontawesome';
-import { faSun, faMoon } from '@fortawesome/free-solid-svg-icons';
+import { faSun, faMoon, faUser, faRobot, faTimes, faCircle } from '@fortawesome/free-solid-svg-icons';
 
 const themes = {
   light: {
@@ -125,6 +125,8 @@ const GameBoard = () => {
     return lines;
   };
 
+  const status = winner ? `Winner: ${winner}` : `Next player: ${isXNext ? 'X' : 'O'}`;
+
   const handleGameModeChange = (event) => {
     setGameMode(event.target.value);
     resetGame(boardSize);
@@ -154,8 +156,12 @@ const GameBoard = () => {
 
   const themeStyles = themes[theme];
 
-  return (
+ return (
     <div className="game-board">
+      <h1 className="game-title">Tic Tac Toe</h1>
+      <button className="theme-toggle-button" onClick={handleThemeChange}>
+        <FontAwesomeIcon icon={theme === 'light' ? faMoon : faSun} />
+      </button>
       <div className="scoreboard-container">
         <div className="score-section">
           <h3>Player X</h3>
@@ -178,7 +184,7 @@ const GameBoard = () => {
             checked={gameMode === 'PvP'}
             onChange={handleGameModeChange}
           />
-          Player vs Player
+          <FontAwesomeIcon icon={faUser} /> vs <FontAwesomeIcon icon={faUser} />
         </label>
         <label>
           <input
@@ -187,7 +193,7 @@ const GameBoard = () => {
             checked={gameMode === 'PvB'}
             onChange={handleGameModeChange}
           />
-          Player vs Bot
+          <FontAwesomeIcon icon={faUser} /> vs <FontAwesomeIcon icon={faRobot} />
         </label>
       </div>
       <div>
@@ -196,7 +202,6 @@ const GameBoard = () => {
           <select value={boardSize} onChange={handleBoardSizeChange}>
             <option value="3">3x3</option>
             <option value="4">4x4</option>
-            <option value="5">5x5</option>
           </select>
         </label>
       </div>
@@ -217,17 +222,13 @@ const GameBoard = () => {
               '--winning-color': themeStyles.winningColor,
             }}
           >
-            {value}
+            {value === 'X' ? <FontAwesomeIcon icon={faTimes} /> : value === 'O' ? <FontAwesomeIcon icon={faCircle} /> : null}
           </div>
         ))}
       </div>
       <button className="reset-button" onClick={handleCloseDialog}>Reset</button>
       <ResultDialog isOpen={isDialogOpen} onClose={handleCloseDialog} result={resultMessage} />
-      <button className="theme-toggle-button" onClick={handleThemeChange}>
-        <FontAwesomeIcon icon={theme === 'light' ? faMoon : faSun} />
-      </button>
     </div>
   );
 };
-
 export default GameBoard;
