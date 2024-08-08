@@ -13,7 +13,7 @@ A simple Tic Tac Toe game built with React. This project demonstrates basic Reac
 
 ## Demo
 
-Check out the live demo: [Tic Tac Toe Game](https://your-username.github.io/your-repository-name)
+Check out the live demo: [Tic Tac Toe](https://neorex80.github.io/Tic-Tac-Toe/)
 
 ## Installation
 
