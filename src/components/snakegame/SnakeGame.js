@@ -24,7 +24,7 @@ const SnakeGame = () => {
   const [snake, setSnake] = useState([{ x: 10, y: 10 }]);
   const [food, setFood] = useState({ x: 15, y: 15 });
   const [bonus, setBonus] = useState(null);
-  const [bonusMovesLeft, setBonusMovesLeft] = useState(0); // Track moves left for the bonus point
+  const [bonusDuration, setBonusDuration] = useState(0); // Track moves left for the bonus point
   const [direction, setDirection] = useState({ x: 1, y: 0 });
   const [gameOver, setGameOver] = useState(false);
   const [score, setScore] = useState(0);
@@ -86,14 +86,14 @@ const SnakeGame = () => {
         // Handle bonus point collection
         if (bonus && head.x === bonus.x && head.y === bonus.y) {
           setBonus(null);
-          setBonusMovesLeft(0); // Reset bonus moves
+          setBonusDuration(0); // Reset bonus duration
           setScore((prevScore) => prevScore + 5);
         }
 
         // Bonus point timing out
-        if (bonusMovesLeft > 0) {
-          setBonusMovesLeft((moves) => moves - 1);
-          if (bonusMovesLeft === 1) {
+        if (bonusDuration > 0) {
+          setBonusDuration((duration) => duration - 1);
+          if (bonusDuration === 1) {
             setBonus(null);
           }
         }
@@ -104,12 +104,12 @@ const SnakeGame = () => {
         }
 
         // Rarity: Randomly generate bonus points with a lower chance and limited visibility
-        if (!bonus && Math.random() < 0.01) { // 1% chance to generate bonus on each move
+        if (!bonus && Math.random() < 0.005) { // 0.5% chance to generate bonus on each move
           setBonus({
             x: Math.floor(Math.random() * boardSize),
             y: Math.floor(Math.random() * boardSize),
           });
-          setBonusMovesLeft(20); // Bonus point will disappear after 20 moves if not collected
+          setBonusDuration(30); // Bonus point will disappear after 30 moves if not collected
         }
 
         if (
@@ -132,13 +132,13 @@ const SnakeGame = () => {
     }, speed);
 
     return () => clearInterval(gameInterval);
-  }, [food, bonus, bonusMovesLeft, gameOver, score, personalBest, speed]);
+  }, [food, bonus, bonusDuration, gameOver, score, personalBest, speed]);
 
   const resetGame = () => {
     setSnake([{ x: 10, y: 10 }]);
     setFood({ x: 15, y: 15 });
     setBonus(null);
-    setBonusMovesLeft(0);
+    setBonusDuration(0);
     setDirection({ x: 1, y: 0 });
     setGameOver(false);
     setScore(0);
@@ -188,6 +188,7 @@ const SnakeGame = () => {
               gridRowStart: bonus.y + 1,
               gridColumnStart: bonus.x + 1,
               backgroundColor: themes[theme].bonusColor,
+              animation: 'bonus-blink 1s linear infinite', // Add a blinking animation
             }}
           ></div>
         )}
@@ -206,3 +207,4 @@ const SnakeGame = () => {
 };
 
 export default SnakeGame;
+

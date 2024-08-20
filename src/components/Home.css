@@ -1,0 +1,16 @@
+/* Home.css */
+@tailwind base;
+@tailwind components;
+@tailwind utilities;
+
+.home-container {
+  @apply flex flex-col items-center justify-center min-h-screen bg-gradient-to-br from-pink-500 to-orange-500 text-white;
+}
+
+.home-header {
+  @apply text-center mb-10;
+}
+
+.game-button {
+  @apply px-8 py-3 rounded-md shadow-md hover:shadow-lg transition duration-300 ease-in-out;
+}
