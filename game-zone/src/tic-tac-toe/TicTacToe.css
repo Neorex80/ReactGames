@@ -1,0 +1,74 @@
+
+  .header {
+    font-size: 2rem;
+    margin-bottom: 20px;
+    color: #d9d9d9; /* Light gray text */
+    font-family: 'Roboto', sans-serif; /* Modern font */
+    text-align: center;
+  }
+  
+  .game-board {
+    display: grid;
+    grid-template-columns: repeat(3, 100px);
+    gap: 10px;
+    margin-bottom: 20px;
+    justify-content: center;
+  }
+  
+  .game-tile {
+    width: 100px;
+    height: 100px;
+    background: #333; /* Darker gray for tiles */
+    border-radius: 10px;
+    display: flex;
+    align-items: center;
+    justify-content: center;
+    font-size: 2rem;
+    cursor: pointer;
+    transition: background 0.3s ease;
+  }
+  
+  .game-tile:hover {
+    background: #444; /* Slightly lighter gray on hover */
+  }
+  
+  .game-tile.active {
+    background: #555; /* Even lighter gray for active tiles */
+  }
+  
+  .footer {
+    font-size: 1.2rem;
+    color: #d9d9d9; /* Light gray text */
+    font-family: 'Roboto', sans-serif; /* Modern font */
+    text-align: center;;
+  }
+  
+  .button {
+    padding: 10px 20px;
+    border: none;
+    border-radius: 5px;
+    background: #00ff00; /* Neon green button */
+    color: #000; /* Black text */
+    cursor: pointer;
+    transition: background 0.3s ease;
+    font-size: 1rem;
+    margin: 5px;
+  }
+  
+  .button:hover {
+    background: #00cc00; /* Darker green on hover */
+  }
+  
+  .reset-button {
+    background: #ff0000; /* Neon red for reset button */
+    color: #000; /* Black text */
+    cursor: pointer;
+    transition: background 0.3s ease;
+    font-size: 1rem;
+    margin: 5px;
+  }
+  
+  .reset-button:hover {
+    background: #cc0000; /* Darker red on hover */
+  }
+  

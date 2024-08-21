@@ -1,0 +1,54 @@
+/* App.css */
+
+body {
+  margin: 0;
+  font-family: 'Arial', sans-serif;
+  background: linear-gradient(120deg, #232526, #414345); /* Dark gradient background */
+  color: #252533; /* Light text color */
+}
+
+header {
+  position: fixed;
+  top: 0;
+  width: 100%;
+  height: 40px;
+  background-color: #333; 
+  color: white;
+  display: flex;
+  justify-content: center;
+  align-items: center;
+  z-index: 1000;
+  box-shadow: 0 2px 5px rgba(0.2, 0, 0, 0.2);
+}
+
+h2 {
+  margin-bottom: 20px;
+}
+
+/* Game Card styling */
+.game-card {
+  background-color: #333; /* Darker background for cards */
+  border-radius: 10px;
+  padding: 20px;
+  margin-bottom: 20px;
+  box-shadow: 0 4px 8px rgba(0, 0, 0, 0.3);
+  text-align: left;
+}
+
+.game-card h3 {
+  color: #00aaff; /* Bright blue for the game title */
+}
+
+.game-card button {
+  background-color: #00aaff;
+  color: #fff;
+  border: none;
+  border-radius: 5px;
+  padding: 10px 20px;
+  cursor: pointer;
+  transition: background-color 0.3s ease;
+}
+
+.game-card button:hover {
+  background-color: #007acc;
+}
