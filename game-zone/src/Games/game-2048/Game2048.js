@@ -33,7 +33,6 @@ const merge = (row, setScore) => {
 
 const transpose = (matrix) => matrix[0].map((_, i) => matrix.map(row => row[i]));
 
-
 const move = (board, direction, setScore) => {
   let newBoard = [...board];
   if (direction === 'left' || direction === 'right') {
@@ -51,21 +50,22 @@ const Game2048 = () => {
   const [score, setScore] = useState(0);
   const [bestScore, setBestScore] = useState(0);
   const [gameOver, setGameOver] = useState(false);
+  const gameBoardRef = React.useRef(null);
 
-  const handleKeyDown = useCallback((e) => {
+  const handleSwipe = useCallback((e) => {
     if (gameOver) return;
     let newBoard;
-    switch (e.key) {
-      case 'ArrowUp':
+    switch (e.type) {
+      case 'swipeup':
         newBoard = move(board, 'up', setScore);
         break;
-      case 'ArrowDown':
+      case 'swipedown':
         newBoard = move(board, 'down', setScore);
         break;
-      case 'ArrowLeft':
+      case 'swipeleft':
         newBoard = move(board, 'left', setScore);
         break;
-      case 'ArrowRight':
+      case 'swiperight':
         newBoard = move(board, 'right', setScore);
         break;
       default:
@@ -79,9 +79,17 @@ const Game2048 = () => {
   }, [board, gameOver]);
 
   useEffect(() => {
-    window.addEventListener('keydown', handleKeyDown);
-    return () => window.removeEventListener('keydown', handleKeyDown);
-  }, [handleKeyDown]);
+    gameBoardRef.current.addEventListener('swipeup', handleSwipe);
+    gameBoardRef.current.addEventListener('swipedown', handleSwipe);
+    gameBoardRef.current.addEventListener('swipeleft', handleSwipe);
+    gameBoardRef.current.addEventListener('swiperight', handleSwipe);
+    return () => {
+      gameBoardRef.current.removeEventListener('swipeup', handleSwipe);
+      gameBoardRef.current.removeEventListener('swipedown', handleSwipe);
+      gameBoardRef.current.removeEventListener('swipeleft', handleSwipe);
+      gameBoardRef.current.removeEventListener('swiperight', handleSwipe);
+    };
+  }, [handleSwipe]);
 
   const checkGameOver = (board) => {
     const hasMoves = board.some((row, i) => row.some((cell, j) => {
@@ -93,7 +101,6 @@ const Game2048 = () => {
     if (!hasMoves) setGameOver(true);
   };
 
-
   const resetGame = () => {
     setBoard(initialBoard());
     setScore(0);
@@ -102,7 +109,7 @@ const Game2048 = () => {
 
   useEffect(() => {
     if (score > bestScore) {
-      setBestScore(score); 
+      setBestScore(score);
     }
   }, [score, bestScore]);
 
@@ -114,9 +121,9 @@ const Game2048 = () => {
           <div className="score-box">Score: {score}</div>
           <div className="best-score-box">Best: {bestScore}</div>
         </div>
-        {gameOver ? 'Game Over!' : 'Use arrow keys or swipe to move tiles'}
+        {gameOver ? 'Game Over!' : 'Swipe to move tiles'}
       </div>
-      <div className="game-board">
+      <div className="game-board" ref={gameBoardRef}>
         {board.map((row, i) => (
           <div key={i} className="board-row">
             {row.map((cell, j) => (
@@ -130,11 +137,10 @@ const Game2048 = () => {
       <button className="reset-button" onClick={resetGame}>Reset</button>
       <div className="how-to-play">
         <h2>How to Play</h2>
-        <p>Use the arrow keys on your keyboard to move the tiles. When two tiles with the same number touch, they merge into one! Reach the 2048 tile to win the game.</p>
+        <p>Swipe on the game board to move the tiles. When two tiles with the same number touch, they merge into one! Reach the 2048 tile to win the game.</p>
       </div>
     </div>
   );
 };
 
 export default Game2048;
-
