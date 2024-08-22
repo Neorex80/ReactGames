@@ -1,10 +1,13 @@
 /* App.css */
 
-body {
+body, html {
   margin: 0;
+  padding: 0;
+  height: 100%;
+  background: linear-gradient(135deg, #0f2027, #203a43, #2c5364);
+  background-attachment: fixed;
   font-family: 'Arial', sans-serif;
-  background: linear-gradient(120deg, #232526, #414345); /* Dark gradient background */
-  color: #252533; /* Light text color */
+  z-index: -1;
 }
 
 header {
@@ -25,30 +28,3 @@ h2 {
   margin-bottom: 20px;
 }
 
-/* Game Card styling */
-.game-card {
-  background-color: #333; /* Darker background for cards */
-  border-radius: 10px;
-  padding: 20px;
-  margin-bottom: 20px;
-  box-shadow: 0 4px 8px rgba(0, 0, 0, 0.3);
-  text-align: left;
-}
-
-.game-card h3 {
-  color: #00aaff; /* Bright blue for the game title */
-}
-
-.game-card button {
-  background-color: #00aaff;
-  color: #fff;
-  border: none;
-  border-radius: 5px;
-  padding: 10px 20px;
-  cursor: pointer;
-  transition: background-color 0.3s ease;
-}
-
-.game-card button:hover {
-  background-color: #007acc;
-}

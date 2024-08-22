@@ -1,31 +1,3 @@
-.body, html {
-    margin: 0;
-    padding: 0;
-    height: 100%;
-    background: linear-gradient(135deg, #181820, #282c34); 
-    background-attachment: fixed;
-    font-family: 'Arial', sans-serif;
-   }
-
-
-.homepage-title {
-    font-size: 2.5rem;
-    color: #ffff;
-    margin-bottom: 40px;
-    padding: 20px;
-    text-align: center;
-    font-family: 'Roboto', sans-serif; 
-    letter-spacing: 0.1rem;
-    text-shadow: 0 0 10px #631ac4, 0 0 15px #eb07b9;
-  }
-  
-.games-container {
-    display: grid;
-    grid-template-columns: repeat(auto-fit, minmax(300px, 1fr));
-    gap: 20px;
-    justify-items: center;
-  }
-  
 .game-card {
     --background: linear-gradient(to right, #74ebd5 0%, #acb6e5 100%);
     width: 300px;
@@ -69,9 +41,14 @@
 .game-card:hover .card-info {
     color: #74ebd5;
     transition: color 1s;
+  } 
+  
+.game-card.bounce {
+    transform: translateY(-5px); /* Move the card up slightly */
   }  
   
 .game-title {
+    font-family: "Press Start 2P", system-ui;
     font-size: 1.5rem;
     margin-bottom: 10px;
     text-align: center;
@@ -143,3 +120,4 @@
     margin-bottom: 15px;
     border-radius: 8px;
   }
+

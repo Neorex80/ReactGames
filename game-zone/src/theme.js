@@ -6,7 +6,7 @@ const theme = createTheme({
       main: '#FF5722', // Your primary color (orange)
     },
     secondary: {
-      main: '#000000', // White for contrast
+      main: '#ffffff', // White for contrast
     },
     background: {
       default: '#1a1a1a', // Dark background for the whole app

@@ -1,0 +1,62 @@
+.body, html {
+    margin: 0;
+    padding: 10px;
+    height: 100%;
+    background: linear-gradient(135deg, #181820, #282c34); 
+    background-attachment: fixed;
+   }
+
+
+   .homepage-title {
+    font-size: 2.5rem;
+    color: #17C3B2;
+    margin-bottom: 20px;
+    padding: 20px;
+    text-align: center;
+    font-family: "Press Start 2P", system-ui;
+    font-weight: 400;
+    font-style: normal;
+    letter-spacing: 0.1rem;
+    text-shadow: 0 0 10px #631ac4, 0 0 15px #eb07b9;
+}
+
+.games-container {
+    display: grid;
+    grid-template-columns: repeat(auto-fit, minmax(300px, 1fr));
+    gap: 20px;
+    row-gap: 30px;
+    padding: 20px;
+    justify-items: center;
+  }
+  
+
+  .carousel-container {
+    position: relative;
+    width: 100%;
+    overflow: hidden;
+  }
+  
+  .carousel-track {
+    display: flex;
+    transition: transform 0.5s ease; /* Smooth transition for sliding */
+  }
+  
+  .prev-button,
+  .next-button {
+    position: absolute;
+    top: 50%;
+    transform: translateY(-50%);
+    background-color: transparent;
+    border: none;
+    font-size: 2rem;
+    cursor: pointer;
+    z-index: 10; /* Ensure buttons are on top */
+  }
+  
+  .prev-button {
+    left: 20px;
+  }
+  
+  .next-button {
+    right: 20px;
+  }
