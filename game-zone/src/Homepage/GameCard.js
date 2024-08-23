@@ -8,9 +8,9 @@ const GameCard = ({ title, description, imgSrc, route }) => {
       <img src={imgSrc} alt={title} className="game-image" />
       <h2 className="game-title">{title}</h2>
       <p className="game-description">{description}</p>
-      <Link to={route} className="play-button">
+      <button className="play-button" onClick={() => window.location.href = route}>
         PLAY NOW
-      </Link>
+      </button>
     </div>
   );
 };

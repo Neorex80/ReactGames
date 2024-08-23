@@ -12,11 +12,6 @@
     text-align: center;
 }
 
-.game-title {
-    font-size: 2em;
-    margin-bottom: 10px;
-}
-
 .score-container {
     display: flex;
     justify-content: space-between;
@@ -88,9 +83,10 @@
 }
 
 .how-to-play {
-    margin-top: 20px;
-    font-size: 1.1em;
-    color: #a9d8f0; /* Soft blue for instructions */
-    text-align: center;
-    max-width: 500px;
+    margin-top: 25px;
+    color: #ccc;
+    background: rgba(0, 0, 0, 0.5);
+    padding: 15px;
+    border-radius: 0.5em;
+    box-shadow: 2px 2px 5px #000;
 }

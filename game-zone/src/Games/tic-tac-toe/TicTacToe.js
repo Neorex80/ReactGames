@@ -1,5 +1,6 @@
 import React, { useState, useCallback, useEffect } from 'react';
 import './TicTacToe.css';
+import HomeButton from '../../Homepage/Homebutton';
 
 const X_ICON = (
   <svg width="60" height="60" viewBox="0 0 24 24" fill="none" xmlns="http://www.w3.org/2000/svg">
@@ -121,6 +122,9 @@ const TicTacToe = () => {
   return (
     <div className="tic-tac-toe">
       <h1 className="tic-title">Tic Tac Toe</h1>
+      <div>
+        <HomeButton/>
+      </div>
       <div className="mode-selection">
         <button className="button" onClick={() => setGameMode('PVP')}>Player vs Player</button>
         <button className="button" onClick={() => setGameMode('CPU')}>Player vs CPU</button>

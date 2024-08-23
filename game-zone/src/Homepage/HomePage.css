@@ -1,62 +1,114 @@
-.body, html {
-    margin: 0;
-    padding: 10px;
-    height: 100%;
-    background: linear-gradient(135deg, #181820, #282c34); 
-    background-attachment: fixed;
-   }
+/* HomePage.css */
+body, html {
+  margin: 0;
+  padding: 0;
+  height: 100%;
+  background: #0f0c29; /* Fallback for older browsers */
+  background: -webkit-linear-gradient(to right, #24243e, #302b63, #0f0c29);
+  background: linear-gradient(to right, #24243e, #302b63, #0f0c29);
+  font-family: "Orbitron", sans-serif; /* Updated Font */
+  color: #fff; /* Ensures text is visible on the dark background */
+}
 
-
-   .homepage-title {
-    font-size: 2.5rem;
-    color: #17C3B2;
-    margin-bottom: 20px;
-    padding: 20px;
-    text-align: center;
-    font-family: "Press Start 2P", system-ui;
-    font-weight: 400;
-    font-style: normal;
-    letter-spacing: 0.1rem;
-    text-shadow: 0 0 10px #631ac4, 0 0 15px #eb07b9;
+.homepage-title {
+  font-size: 3rem;
+  color: #17C3B2;
+  margin-bottom: 30px;
+  padding: 20px;
+  text-align: center;
+  font-weight: 600;
+  text-shadow: 0 0 20px #631ac4, 0 0 25px #eb07b9;
 }
 
 .games-container {
-    display: grid;
-    grid-template-columns: repeat(auto-fit, minmax(300px, 1fr));
-    gap: 20px;
-    row-gap: 30px;
-    padding: 20px;
-    justify-items: center;
-  }
-  
+  display: grid;
+  grid-template-columns: repeat(auto-fit, minmax(280px, 1fr));
+  gap: 30px;
+  justify-items: center;
+  padding: 20px;
+}
 
-  .carousel-container {
-    position: relative;
-    width: 100%;
-    overflow: hidden;
-  }
-  
-  .carousel-track {
-    display: flex;
-    transition: transform 0.5s ease; /* Smooth transition for sliding */
-  }
-  
-  .prev-button,
-  .next-button {
-    position: absolute;
-    top: 50%;
-    transform: translateY(-50%);
-    background-color: transparent;
-    border: none;
-    font-size: 2rem;
-    cursor: pointer;
-    z-index: 10; /* Ensure buttons are on top */
-  }
-  
-  .prev-button {
-    left: 20px;
-  }
-  
-  .next-button {
-    right: 20px;
-  }
+.game-card {
+  background-color: #111;
+  border-radius: 15px;
+  overflow: hidden;
+  box-shadow: 0 10px 20px rgba(0, 0, 0, 0.2);
+  transition: transform 0.3s ease;
+  perspective: 1000px; /* 3D Effect */
+}
+
+.game-card:hover {
+  transform: rotateY(15deg) scale(1.05); /* Rotate on Hover */
+  box-shadow: 0 15px 30px rgba(0, 0, 0, 0.4);
+}
+
+.game-card img {
+  width: 100%;
+  height: auto;
+}
+
+.game-card-title {
+  font-size: 1.5rem;
+  color: #17C3B2;
+  margin: 15px;
+  text-align: center;
+}
+
+.game-card-description {
+  font-size: 1rem;
+  color: #ffffff;
+  padding: 0 15px 20px;
+  text-align: center;
+}
+
+.btn-class-name {
+  --primary: 255, 90, 120;
+  --secondary: 150, 50, 60;
+  width: 60px;
+  height: 50px;
+  border: none;
+  outline: none;
+  cursor: pointer;
+  user-select: none;
+  touch-action: manipulation;
+  outline: 10px solid rgb(var(--primary), .5);
+  border-radius: 100%;
+  position: relative;
+  transition: .3s;
+}
+
+.btn-class-name .back {
+  background: rgb(var(--secondary));
+  border-radius: 100%;
+  position: absolute;
+  left: 0;
+  top: 0;
+  width: 100%;
+  height: 100%;
+}
+
+.btn-class-name .front {
+  background: linear-gradient(0deg, rgba(var(--primary), .6) 20%, rgba(var(--primary)) 50%);
+  box-shadow: 0 .5em 1em -0.2em rgba(var(--secondary), .5);
+  border-radius: 100%;
+  position: absolute;
+  border: 1px solid rgb(var(--secondary));
+  left: 0;
+  top: 0;
+  width: 100%;
+  height: 100%;
+  display: flex;
+  justify-content: center;
+  align-items: center;
+  font-size: 1.2rem;
+  font-weight: 600;
+  font-family: inherit;
+  transform: translateY(-15%);
+  transition: .15s;
+  color: rgb(var(--secondary));
+}
+
+.btn-class-name:active .front {
+  transform: translateY(0%);
+  box-shadow: 0 0;
+}

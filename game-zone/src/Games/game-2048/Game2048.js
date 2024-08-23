@@ -1,5 +1,6 @@
-import React, { useState, useEffect, useCallback } from 'react';
+import React, { useState, useEffect, useCallback, useRef } from 'react';
 import './Game2048.css';
+import HomeButton from '../../Homepage/Homebutton';
 
 const initialBoard = () => {
   let board = Array(4).fill(null).map(() => Array(4).fill(0));
@@ -50,22 +51,51 @@ const Game2048 = () => {
   const [score, setScore] = useState(0);
   const [bestScore, setBestScore] = useState(0);
   const [gameOver, setGameOver] = useState(false);
-  const gameBoardRef = React.useRef(null);
+  const [swipeStart, setSwipeStart] = useState({ x: 0, y: 0 });
+  const gameBoardRef = useRef(null);
+  const animationRef = useRef(null);
 
-  const handleSwipe = useCallback((e) => {
+  const handleSwipeStart = useCallback((e) => {
+    const touch = e.touches[0];
+    setSwipeStart({ x: touch.clientX, y: touch.clientY });
+  }, []);
+
+  const handleSwipeMove = useCallback((e) => {
+    if (gameOver) return;
+    const touch = e.touches[0];
+    const deltaX = touch.clientX - swipeStart.x;
+    const deltaY = touch.clientY - swipeStart.y;
+
+    if (Math.abs(deltaX) > 50 || Math.abs(deltaY) > 50) {
+      let newBoard;
+      if (Math.abs(deltaX) > Math.abs(deltaY)) {
+        newBoard = deltaX > 0 ? move(board, 'right', setScore) : move(board, 'left', setScore);
+      } else {
+        newBoard = deltaY > 0 ? move(board, 'down', setScore) : move(board, 'up', setScore);
+      }
+
+      if (JSON.stringify(newBoard) !== JSON.stringify(board)) {
+        addRandomTile(newBoard);
+        setBoard(newBoard);
+        checkGameOver(newBoard);
+      }
+    }
+  }, [board, gameOver, swipeStart]);
+
+  const handleKeyDown = useCallback((e) => {
     if (gameOver) return;
     let newBoard;
-    switch (e.type) {
-      case 'swipeup':
+    switch (e.key) {
+      case 'ArrowUp':
         newBoard = move(board, 'up', setScore);
         break;
-      case 'swipedown':
+      case 'ArrowDown':
         newBoard = move(board, 'down', setScore);
         break;
-      case 'swipeleft':
+      case 'ArrowLeft':
         newBoard = move(board, 'left', setScore);
         break;
-      case 'swiperight':
+      case 'ArrowRight':
         newBoard = move(board, 'right', setScore);
         break;
       default:
@@ -79,17 +109,11 @@ const Game2048 = () => {
   }, [board, gameOver]);
 
   useEffect(() => {
-    gameBoardRef.current.addEventListener('swipeup', handleSwipe);
-    gameBoardRef.current.addEventListener('swipedown', handleSwipe);
-    gameBoardRef.current.addEventListener('swipeleft', handleSwipe);
-    gameBoardRef.current.addEventListener('swiperight', handleSwipe);
+    document.addEventListener('keydown', handleKeyDown);
     return () => {
-      gameBoardRef.current.removeEventListener('swipeup', handleSwipe);
-      gameBoardRef.current.removeEventListener('swipedown', handleSwipe);
-      gameBoardRef.current.removeEventListener('swipeleft', handleSwipe);
-      gameBoardRef.current.removeEventListener('swiperight', handleSwipe);
+      document.removeEventListener('keydown', handleKeyDown);
     };
-  }, [handleSwipe]);
+  }, [handleKeyDown]);
 
   const checkGameOver = (board) => {
     const hasMoves = board.some((row, i) => row.some((cell, j) => {
@@ -113,17 +137,48 @@ const Game2048 = () => {
     }
   }, [score, bestScore]);
 
+  const animateMerge = (mergedCells) => {
+    mergedCells.forEach(([i, j]) => {
+      const cell = gameBoardRef.current.querySelector(`.board-cell:nth-child(${i * 4 + j + 1})`);
+      cell.style.transition = 'transform 0.2s ease-in-out';
+      cell.style.transform = 'scale(1.2)';
+      setTimeout(() => {
+        cell.style.transform = 'scale(1)';
+      }, 200);
+    });
+  };
+
+  const handleMove = (newBoard) => {
+    if (JSON.stringify(newBoard) !== JSON.stringify(board)) {
+      const mergedCells = [];
+      for (let i = 0; i < 4; i++) {
+        for (let j = 0; j < 4; j++) {
+          if (board[i][j] !== newBoard[i][j] && newBoard[i][j] !== 0) {
+            mergedCells.push([i, j]);
+          }
+        }
+      }
+      addRandomTile(newBoard);
+      setBoard(newBoard);
+      checkGameOver(newBoard);
+      animateMerge(mergedCells);
+    }
+  };
+
   return (
-    <div className="game-container">
+    <div className="game-container" onTouchStart={handleSwipeStart} onTouchMove={handleSwipeMove} ref={gameBoardRef}>
       <div className="status">
         <h1 className="game-title">2048</h1>
+        <div>
+          <HomeButton/>
+        </div>
         <div className="score-container">
           <div className="score-box">Score: {score}</div>
           <div className="best-score-box">Best: {bestScore}</div>
         </div>
-        {gameOver ? 'Game Over!' : 'Swipe to move tiles'}
+        {gameOver ? 'Game Over!' : 'Swipe or use arrow keys to move tiles'}
       </div>
-      <div className="game-board" ref={gameBoardRef}>
+      <div className="game-board">
         {board.map((row, i) => (
           <div key={i} className="board-row">
             {row.map((cell, j) => (
@@ -137,7 +192,7 @@ const Game2048 = () => {
       <button className="reset-button" onClick={resetGame}>Reset</button>
       <div className="how-to-play">
         <h2>How to Play</h2>
-        <p>Swipe on the game board to move the tiles. When two tiles with the same number touch, they merge into one! Reach the 2048 tile to win the game.</p>
+        <p>Swipe on the game board or use arrow keys to move the tiles. When two tiles with the same number touch, they merge into one! Reach the 2048 tile to win the game.</p>
       </div>
     </div>
   );

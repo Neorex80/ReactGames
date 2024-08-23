@@ -1,6 +1,4 @@
-/* Connect 4 Game Styles */
-
-.c4-game-container {
+.c4-container {
     text-align: center;
     margin-top: 20px;
 }
@@ -9,6 +7,10 @@
     font-size: 1.5em;
     color: #a9d8f0;
     margin-bottom: 20px;
+    text-align: center;
+    background-color: #444; /* Add a background color */
+    padding: 10px 20px; /* Add padding */
+    border-radius: 5px; /* Add rounded corners */
 }
 
 .c4-scoreboard {
@@ -17,7 +19,11 @@
     margin-bottom: 20px;
     color: #fff;
     font-size: 1.2em;
+    background-color: #444; /* Add a background color */
+    padding: 10px 20px; /* Add padding */
+    border-radius: 5px; /* Add rounded corners */
 }
+
 
 .c4-game-board {
     display: grid;
@@ -27,13 +33,13 @@
     margin: 0 auto;
 }
 
-.c4-column { /* Added 'c4-' prefix to the column class */
+.c4-column {
     display: grid;
     grid-template-rows: repeat(6, 60px);
     cursor: pointer;
 }
 
-.c4-cell { /* Added 'c4-' prefix to the cell class */
+.c4-cell {
     width: 60px;
     height: 60px;
     background-color: #333;
@@ -42,44 +48,136 @@
     transition: background-color 0.3s;
 }
 
-.c4-cell.red { /* Added 'c4-' prefix to the cell class */
+.c4-cell.red {
     background-color: #ff4d4d;
 }
 
-.c4-cell.yellow { /* Added 'c4-' prefix to the cell class */
+.c4-cell.yellow {
     background-color: #ffeb3b;
 }
 
-.c4-reset-button {
+.c4-controls {
     margin-top: 20px;
-    font-size: 1.4em;
-    padding: 0.6em 0.8em;
-    border-radius: 0.5em;
+}
+
+/* Connect4.css */
+/* ... (rest of your CSS) ... */
+
+.c4-mode-select,
+.c4-difficulty-select {
+    margin-top: 15px;
+    display: flex;
+    justify-content: center;
+    color: #fff;
+    background-color: #444; /* Add a background color */
+    padding: 10px 20px; /* Add padding */
+    border-radius: 5px; /* Add rounded corners */
+    position: relative; /* To position the dropdown arrow */
+}
+
+.c4-mode-select label,
+.c4-difficulty-select label {
+    margin-right: 10px;
+    color: #fff; /* Ensure label text is white */
+    cursor: pointer; /* Make the label clickable */
+}
+
+.c4-mode-select select,
+.c4-difficulty-select select {
+    -webkit-appearance: none; /* Remove default browser styling */
+    -moz-appearance: none;
+    appearance: none;
+    width: 150px; /* Adjust width as needed */
+    padding: 8px 15px;
+    background-color: #333; /* Match the background of the container */
+    color: #fff;
     border: none;
-    background-color: #222;
-    color: #fff;
+    border-radius: 5px;
     cursor: pointer;
-    box-shadow: 2px 2px 3px #000000b4;
-    transition: background-color 0.3s, color 0.3s;
+    font-size: 1em;
+    position: relative; /* To position the dropdown arrow */
 }
 
-.c4-reset-button:hover {
-    background-color: #4a4a4a;
+.c4-mode-select select:focus,
+.c4-difficulty-select select:focus {
+    outline: none; /* Remove focus outline */
+}
+
+.c4-mode-select select::after,
+.c4-difficulty-select select::after {
+    content: "";
+    position: absolute;
+    top: 50%;
+    right: 15px;
+    transform: translateY(-50%);
+    width: 0;
+    height: 0;
+    border-left: 5px solid transparent;
+    border-right: 5px solid transparent;
+    border-top: 8px solid #fff; /* White arrow */
+}
+
+.c4-mode-select select option,
+.c4-difficulty-select select option {
+    background-color: #444; /* Match the background of the container */
     color: #fff;
 }
 
-.c4-how-to-play { /* Added 'c4-' prefix to the how-to-play class */
-    margin-top: 20px;
+    
+.c4-how-to-play {
+    margin-top: 25px;
     color: #ccc;
-    text-align: center;
-}
-
-.c4-how-to-play h2 { /* Added 'c4-' prefix to the how-to-play class */
-    font-size: 1.5rem;
+    background: rgba(0, 0, 0, 0.5);
+    padding: 15px;
+    border-radius: 0.5em;
+    box-shadow: 2px 2px 5px #000;
+    }
+    
+.c4-how-to-play h2 {
     margin-bottom: 10px;
-}
+    font-size: 1.8em;
+    }
+    
+.c4-how-to-play p {
+    font-size: 1.1em;
+    }
 
-.c4-how-to-play p { /* Added 'c4-' prefix to the how-to-play class */
-    font-size: 1rem;
-    color: #ccc;
-}
+@media (max-width: 768px) { /* Adjust breakpoint as needed */
+        .c4-container {
+          margin-top: 10px; /* Reduce top margin for mobile */
+        }
+      
+        .c4-game-board {
+          grid-template-columns: repeat(7, 40px); /* Adjust column width */
+          grid-gap: 5px; /* Reduce gap */
+        }
+      
+        .c4-column {
+          grid-template-rows: repeat(6, 40px); /* Adjust row height */
+        }
+      
+        .c4-cell {
+          width: 40px; /* Adjust cell size */
+          height: 40px;
+        }
+      
+        .c4-scoreboard {
+          flex-direction: column; /* Stack scoreboard items vertically */
+          align-items: center;
+        }
+      
+        .c4-mode-select,
+        .c4-difficulty-select {
+          flex-direction: column; /* Stack mode/difficulty options vertically */
+          align-items: center;
+        }
+      
+        .c4-mode-select label,
+        .c4-difficulty-select label {
+          margin-bottom: 5px; /* Add margin between labels */
+        }
+      
+        .c4-how-to-play {
+          font-size: 0.9em; /* Reduce font size for readability */
+        }
+      }    
